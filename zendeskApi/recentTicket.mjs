@@ -1,5 +1,5 @@
-const { httpStatus, defaults } = require('./constants');
-const searchByTemplate = require('./template');
+import { httpStatus, defaults } from './constants.mjs';
+import searchByTemplate from './template.mjs';
 
 const recentTicket = async (event) => {
     const { Parameters } = event.Details;
@@ -12,4 +12,4 @@ const recentTicket = async (event) => {
     return searchByTemplate(event);
 };
 
-module.exports = recentTicket;
+export default recentTicket;

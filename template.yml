@@ -35,7 +35,7 @@ Metadata:
     ReadmeUrl: README.md
     Labels: ['Connect','search', 'Zendesk', 'Support-ticket', 'Contact-flow']
     HomePageUrl: https://github.com/voicefoundry-cloud-public/zendesk-connect-sar-searchapi
-    SemanticVersion: 2.0.0
+    SemanticVersion: 2.1.0
     SourceCodeUrl: https://github.com/voicefoundry-cloud-public/zendesk-connect-sar-searchapi
 
 Resources:
@@ -46,7 +46,7 @@ Resources:
     Properties:
       FunctionName: !Sub "zendeskSearchInContactFlow-${TargetEnvironment}"
       Description: "Triggered from Connect contact flow, it searches Zendesk Support API for tickets and users"
-      Runtime: nodejs16.x
+      Runtime: nodejs18.x
       Handler: index.handler
       CodeUri: zendeskApi/
       Timeout: 8

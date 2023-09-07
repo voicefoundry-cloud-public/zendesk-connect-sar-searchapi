@@ -1,6 +1,6 @@
-const { init, searchZendesk } = require('./api');
-const { httpStatus, keywordParams } = require('./constants');
-const { commonUserFields, commonTicketFields, copiedFields } = require('./returningFields');
+import { init, searchZendesk } from './api.mjs';
+import { httpStatus, keywordParams } from './constants.mjs';
+import { commonUserFields, commonTicketFields, copiedFields } from './returningFields.mjs';
 
 const template = async (event) => {
     const { Parameters } = event.Details;
@@ -63,4 +63,4 @@ const template = async (event) => {
     return response;
 };
 
-module.exports = template; 
+export default template; 

@@ -1,14 +1,14 @@
 console.log('Loading function');
 
-const { httpStatus } = require('./constants');
-const callingUser = require('./callingUser');
-const recentTicket = require('./recentTicket');
-const userId = require('./userId');
-const ticketId = require('./ticketId');
-const template = require('./template');
-const customField = require('./customField');
+import { httpStatus } from './constants.mjs';
+import callingUser from './callingUser.mjs';
+import recentTicket from './recentTicket.mjs';
+import userId from './userId.mjs';
+import ticketId from './ticketId.mjs';
+import template from './template.mjs';
+import customField from './customField.mjs';
 
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
     // console.log('Received event:', JSON.stringify(event, null, 2));
 
     const badRequestStatus = { status: httpStatus.badRequest };
