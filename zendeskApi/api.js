@@ -6,7 +6,7 @@ const apiError = (queryUrl) => `
     for query ${queryUrl}
 `;
 
-const init = (email) => {
+export const init = (email) => {
     const credentials = {
         url: process.env.ZD_URL,
         email: email || process.env.ZD_EMAIL,
@@ -51,7 +51,7 @@ const getApiResponse = async (webClient, queryUrl) => {
     });
 };
 
-const searchZendesk = async (webClient, queryUrl) => {
+export const searchZendesk = async (webClient, queryUrl) => {
     const response = await getApiResponse(webClient, queryUrl);
     if (!(response && response.data)) return {};
 
@@ -67,7 +67,7 @@ const searchZendesk = async (webClient, queryUrl) => {
     };
 };
 
-const queryZendesk = async (webClient, queryUrl, expected) => {
+export const queryZendesk = async (webClient, queryUrl, expected) => {
     const response = await getApiResponse(webClient, queryUrl);
     if (!(response && response.data)) {
         return response == '404' ? httpStatus.notFound : null;
@@ -80,10 +80,4 @@ const queryZendesk = async (webClient, queryUrl, expected) => {
     }
 
     return data[expected];
-};
-
-export default {
-    init,
-    searchZendesk,
-    queryZendesk
 };

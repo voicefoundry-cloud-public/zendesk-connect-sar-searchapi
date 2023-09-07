@@ -1,4 +1,4 @@
-const commonUserFields = (user) => {
+export const commonUserFields = (user) => {
     const [first, last] = user.name.split(' ');
     return {
         zendesk_user: user.id,
@@ -17,7 +17,7 @@ const commonUserFields = (user) => {
     };
 };
 
-const commonTicketFields = (ticket) => {
+export const commonTicketFields = (ticket) => {
     return {
         zendesk_ticket: ticket.id,
         zendesk_user: ticket.requester,
@@ -27,19 +27,13 @@ const commonTicketFields = (ticket) => {
     };
 };
 
-const copiedFields = (fieldList, source) => {
+export const copiedFields = (fieldList, source) => {
     const target = {};
     if (fieldList) {
         const fieldArray = fieldList.split(',').map((field) => field.trim());
         fieldArray.forEach((field) => {
             target[field] = source[field];
-        })
-    };
+        });
+    }
     return target; 
-}
-
-export default {
-    commonUserFields,
-    commonTicketFields,
-    copiedFields
 };
