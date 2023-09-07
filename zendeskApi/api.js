@@ -1,5 +1,5 @@
-const axios = require('axios');
-const { httpStatus } = require('./constants');
+import axios from 'axios';
+import { httpStatus } from './constants.mjs';
 
 const apiError = (queryUrl) => `
     error getting response from Zendesk Search API
@@ -82,7 +82,7 @@ const queryZendesk = async (webClient, queryUrl, expected) => {
     return data[expected];
 };
 
-module.exports = {
+export default {
     init,
     searchZendesk,
     queryZendesk

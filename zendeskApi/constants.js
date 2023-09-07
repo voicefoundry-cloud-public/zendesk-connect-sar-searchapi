@@ -23,7 +23,7 @@ const keywordParams = [
     'sort_order'
 ];
 
-module.exports = {
+export default {
     httpStatus,
     defaults,
     returnType,

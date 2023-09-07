@@ -38,7 +38,7 @@ const copiedFields = (fieldList, source) => {
     return target; 
 }
 
-module.exports = {
+export default {
     commonUserFields,
     commonTicketFields,
     copiedFields

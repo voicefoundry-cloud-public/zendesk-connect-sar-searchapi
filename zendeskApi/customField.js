@@ -1,5 +1,5 @@
-const { httpStatus } = require('./constants');
-const searchByTemplate = require('./template');
+import { httpStatus } from './constants.mjs';
+import searchByTemplate from './template.mjs';
 
 const customField = async (event) => {
     const { Parameters } = event.Details;
@@ -13,4 +13,4 @@ const customField = async (event) => {
     return searchByTemplate(event);
 };
 
-module.exports = customField;
+export default customField;
