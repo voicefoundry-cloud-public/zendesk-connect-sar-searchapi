@@ -12,7 +12,7 @@ const template = async (event) => {
     params.forEach((key) => {
         searchString = searchString.replace(`{${key}}`, Parameters[key]);
     });
-    
+
     // check for bad formatting
     if (searchString.includes('{') || searchString.includes('}')) return { status: httpStatus.badRequest };
 
@@ -26,7 +26,7 @@ const template = async (event) => {
     const { results, count } = await searchZendesk(webClient, query);
     if (!results) return { status: httpStatus.serverError };
     if (!results.length) {
-        return { 
+        return {
             status: httpStatus.notFound,
             ...copiedFields(Parameters.carry_on, Parameters)
         };
@@ -37,29 +37,35 @@ const template = async (event) => {
     // because Zendesk search api does not allow to query by shared_phone_number
     if (searchString.startsWith('type:user') && searchString.includes(' phone:')) {
         result = results.find((user) => !user.shared_phone_number);
+        if (!result) {
+            return {
+                status: httpStatus.notFound,
+                ...copiedFields(Parameters.carry_on, Parameters)
+            };
+        }
     }
 
-    const response = { 
-        status: httpStatus.ok, 
+    const response = {
+        status: httpStatus.ok,
         results_count: count,
         ...copiedFields(Parameters.return_fields, result),
         ...copiedFields(Parameters.carry_on, Parameters)
     };
-    
+
     if (searchString.startsWith('type:ticket')) {
-        return { 
+        return {
             ...response,
             ...commonTicketFields(result)
         };
     }
 
     if (searchString.startsWith('type:user')) {
-        return { 
-            ...response, 
-            ...commonUserFields(result) 
+        return {
+            ...response,
+            ...commonUserFields(result)
         };
     }
-    
+
     return response;
 };
 
