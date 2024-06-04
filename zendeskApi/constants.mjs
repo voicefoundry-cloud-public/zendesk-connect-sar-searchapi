@@ -1,4 +1,4 @@
-const httpStatus = {
+export const httpStatus = {
     ok: "ok", // 200
     badRequest: "bad request", // 400
     accessDenied: "access denied", // 403
@@ -6,26 +6,19 @@ const httpStatus = {
     serverError: "server error" // 500
 };
 
-const defaults = {
+export const defaults = {
     recentTicketHours: 72
 };
 
-const returnType = {
+export const returnType = {
     results: 'results',
     ticket: 'ticket',
     user: 'user'
 };
 
-const keywordParams = [
+export const keywordParams = [
     'search_template', 
     'return_fields', 
     'sort_by', 
     'sort_order'
 ];
-
-module.exports = {
-    httpStatus,
-    defaults,
-    returnType,
-    keywordParams
-};

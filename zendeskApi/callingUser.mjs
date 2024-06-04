@@ -1,5 +1,5 @@
-const { httpStatus } = require('./constants');
-const searchByTemplate = require('./template');
+import { httpStatus } from './constants.mjs';
+import searchByTemplate from  './template.mjs';
 
 const callingUser = async (event) => {
     const { CustomerEndpoint } = event.Details.ContactData;
@@ -17,4 +17,4 @@ const callingUser = async (event) => {
     return { status: httpStatus.notFound };
 };
 
-module.exports = callingUser;
+export default callingUser;

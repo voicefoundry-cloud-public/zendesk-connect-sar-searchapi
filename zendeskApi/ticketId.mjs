@@ -1,6 +1,6 @@
-const { init, queryZendesk } = require('./api');
-const { httpStatus, returnType } = require('./constants');
-const { commonTicketFields, copiedFields } = require('./returningFields');
+import { init, queryZendesk } from './api.mjs';
+import { httpStatus, returnType } from './constants.mjs';
+import { commonTicketFields, copiedFields } from './returningFields.mjs';
 
 const ticketId = async (event) => {
     const { Parameters } = event.Details;
@@ -26,4 +26,4 @@ const ticketId = async (event) => {
     };
 };
 
-module.exports = ticketId;
+export default ticketId;

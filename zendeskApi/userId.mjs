@@ -1,6 +1,6 @@
-const { init, queryZendesk } = require('./api');
-const { httpStatus, returnType } = require('./constants');
-const { commonUserFields, copiedFields } = require('./returningFields');
+import { init, queryZendesk } from './api.mjs';
+import { httpStatus, returnType } from './constants.mjs';
+import { commonUserFields, copiedFields } from './returningFields.mjs';
 
 const userId = async (event) => {
     const { Parameters } = event.Details;
@@ -26,4 +26,4 @@ const userId = async (event) => {
     };
 };
 
-module.exports = userId;
+export default userId;
