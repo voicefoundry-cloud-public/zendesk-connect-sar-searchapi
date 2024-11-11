@@ -23,6 +23,11 @@ Parameters:
     Type: Number
     Description: Time span (in hours) within which to search for recently updated open tickets
     Default: 72
+  DefaultCountryPrefix:
+    Type: String
+    Description: International dialling prefix for your country, e.g. +61 for Australia. Required when Zendesk users have their phone numbers stored in local format.
+    AllowedPattern: ^\+\d{1,3}$
+    ConstraintDescription: "Prefix must be a valid 1-3 digit number preceded by a plus sign. For example, +386"
   
 ######################### Metadata ############################
 Metadata:
@@ -35,7 +40,7 @@ Metadata:
     ReadmeUrl: README.md
     Labels: ['Connect','search', 'Zendesk', 'Support-ticket', 'Contact-flow']
     HomePageUrl: https://github.com/voicefoundry-cloud-public/zendesk-connect-sar-searchapi
-    SemanticVersion: 2.1.0
+    SemanticVersion: 2.1.1
     SourceCodeUrl: https://github.com/voicefoundry-cloud-public/zendesk-connect-sar-searchapi
 
 Resources:
@@ -58,3 +63,4 @@ Resources:
           ZD_TOKEN: !Ref ZendeskToken 
           ZD_URL: !Ref ZendeskURL
           RECENT_TICKETS_HOURS: !Ref RecentTicketsHours
+          DEFAULT_COUNTRY_PREFIX: !Ref DefaultCountryPrefix
