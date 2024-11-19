@@ -6,7 +6,7 @@ const ticketId = async (event) => {
     const { Parameters } = event.Details;
     if (!Parameters.zendesk_ticket) return { status: httpStatus.badRequest };
 
-    const webClient = init();
+    const webClient = await init();
     if (!webClient) return { status: httpStatus.serverError };
 
     const query = `/api/v2/tickets/${Parameters.zendesk_ticket}.json`;

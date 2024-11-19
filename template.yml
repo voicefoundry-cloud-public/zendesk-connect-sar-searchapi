@@ -40,27 +40,39 @@ Metadata:
     ReadmeUrl: README.md
     Labels: ['Connect','search', 'Zendesk', 'Support-ticket', 'Contact-flow']
     HomePageUrl: https://github.com/voicefoundry-cloud-public/zendesk-connect-sar-searchapi
-    SemanticVersion: 2.1.1
+    SemanticVersion: 2.1.3
     SourceCodeUrl: https://github.com/voicefoundry-cloud-public/zendesk-connect-sar-searchapi
 
 Resources:
 
+  ######################### Zendesk token #######################
+  ZendeskTokenSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: zc-API-Token-Zendesk-search
+      SecretString: !Ref ZendeskToken
   ######################### Lambda ##########################
   functionZendeskSearch:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub "zendeskSearchInContactFlow-${TargetEnvironment}"
       Description: "Triggered from Connect contact flow, it searches Zendesk Support API for tickets and users"
-      Runtime: nodejs18.x
+      Runtime: nodejs20.x
       Handler: index.handler
       CodeUri: zendeskApi/
       Timeout: 8
       Policies: 
         - AWSLambdaBasicExecutionRole
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action: secretsmanager:GetSecretValue
+              Resource: !Ref ZendeskTokenSecret
+
       Environment:
         Variables:
           ZD_EMAIL: !Ref ZendeskEmailID
-          ZD_TOKEN: !Ref ZendeskToken 
+          ZD_TOKEN_ID: zc-API-Token-Zendesk-search 
           ZD_URL: !Ref ZendeskURL
           RECENT_TICKETS_HOURS: !Ref RecentTicketsHours
           DEFAULT_COUNTRY_PREFIX: !Ref DefaultCountryPrefix
