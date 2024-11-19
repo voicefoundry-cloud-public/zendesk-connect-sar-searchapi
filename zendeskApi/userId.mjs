@@ -6,7 +6,7 @@ const userId = async (event) => {
     const { Parameters } = event.Details;
     if (!Parameters.zendesk_user) return { status: httpStatus.badRequest };
 
-    const webClient = init();
+    const webClient = await init();
     if (!webClient) return { status: httpStatus.serverError };
 
     const query = `/api/v2/users/${Parameters.zendesk_user}.json`;

@@ -16,7 +16,7 @@ const template = async (event) => {
     // check for bad formatting
     if (searchString.includes('{') || searchString.includes('}')) return { status: httpStatus.badRequest };
 
-    const webClient = init();
+    const webClient = await init();
     if (!webClient) return { status: httpStatus.serverError };
 
     let query = `/api/v2/search.json?query=${encodeURIComponent(searchString)}`;

@@ -1,31 +1,41 @@
 import axios from 'axios';
 import { httpStatus } from './constants.mjs';
+import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
+
+const smClient = new SecretsManagerClient({});
 
 const apiError = (queryUrl) => `
     error getting response from Zendesk Search API
     for query ${queryUrl}
-`;
+`;    
 
-export const init = (email) => {
+export const init = async (email) => {
     const credentials = {
         url: process.env.ZD_URL,
         email: email || process.env.ZD_EMAIL,
-        token: process.env.ZD_TOKEN
+        tokenId: process.env.ZD_TOKEN_ID
     };
 
-    if (!credentials.url || !credentials.email || !credentials.token) {
-        console.error('missing credentials in env variables (ZD_URL, ZD_EMAIL, ZD_TOKEN)');
+    if (!credentials.url || !credentials.email || !credentials.tokenId) {
+        console.error('missing credentials in env variables (ZD_URL, ZD_EMAIL, ZD_TOKEN_ID)');
         return null;
     }
 
     try {
-        const raw = `${credentials.email}/token:${credentials.token}`;
-        const encoded = (Buffer.from(raw)).toString('base64');
-        return axios.create({
-            baseURL: credentials.url,
-            timeout: 5000,
-            headers: { 'Authorization': 'Basic ' + encoded }
-        });
+        const command = new GetSecretValueCommand({ SecretId: credentials.tokenId });
+        const secret = await smClient.send(command);
+
+        if ('SecretString' in secret) {
+            const raw = `${credentials.email}/token:${secret.SecretString}`;
+            const encoded = (Buffer.from(raw)).toString('base64');
+            return axios.create({
+                baseURL: credentials.url,
+                timeout: 5000,
+                headers: { 'Authorization': 'Basic ' + encoded, 'Accept': 'application/json' }
+            });
+        } else {
+            throw new Error("Zendesk token secret does not have a string value");
+        }
     }
     catch (err) {
         console.error('Error initiating web client: ', err.message);
