@@ -40,7 +40,7 @@ Metadata:
     ReadmeUrl: README.md
     Labels: ['Connect','search', 'Zendesk', 'Support-ticket', 'Contact-flow']
     HomePageUrl: https://zendeskconnector.ttecdigital.solutions/zendesk/Working-version
-    SemanticVersion: 2.1.5
+    SemanticVersion: 2.1.6
     SourceCodeUrl: https://github.com/voicefoundry-cloud-public/zendesk-connect-sar-searchapi
 
 Resources:
